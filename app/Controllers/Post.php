@@ -3,23 +3,40 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 
-use App\Models\PostsModel;
-
+use App\Models\NoticeModel;
 class Post extends Controller
 {
     // 생성
-    public function create(){
+    public function create()
+    {
+        if ($this->request->getMethod() === "get") { // (1)
+            return view("/post/create"); // (2)
+        }
 
+        // (3)
+        $model = new NoticeModel();
+        $SEQ = $model->insert($this->request->getPost()); // (4)
+
+        if ($SEQ) { //(5)
+            $this->response->redirect("/post/show/$SEQ"); // (6)
+        } else {
+            return view("/post/create", [ // (7)
+                'post_data' => $this->request->getPost(),
+                'errors' => $model->errors()
+            ]);
+        }
     }
 
     // 조회
-    public function show($post_id){
-        $model = new PostModel();
-        $post = $model->find($post_id);
-        if (!$post){
+    public function show($SEQ)
+    {
+        $model = new NoticeModel();
+        $post = $model->find($SEQ); // (1)
+        if (!$post) { // (2)
             return $this->response->redirect("/post");
         }
-        return view('/post/show',[
+
+        return view('/post/show',[ // (3)
             'post' => $post
         ]);
     }
