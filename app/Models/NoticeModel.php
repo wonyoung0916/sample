@@ -10,7 +10,6 @@ class NoticeModel extends Model
     protected $allowedFields = ['TITLE', 'CONTENT'];
     protected $primaryKey = 'SEQ';
 
-    protected $useSoftDeletes = true;
     protected $useTimestamps = true;
 
 }

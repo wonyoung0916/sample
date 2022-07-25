@@ -2,11 +2,11 @@
 <form method="POST">
     <p>
     <h3>제목</h3>
-    <input type="text" name="title" value="<?= $post_data['TITLE'] ?? "" ?>" />
+    <input type="text" name="TITLE" value="<?= $post_data['TITLE'] ?? "" ?>" />
     </p>
     <p>
     <h3>내용</h3>
-    <textarea name="content"><?= $post_data['CONTENT'] ?? "" ?></textarea>
+    <textarea name="CONTENT"><?= $post_data['CONTENT'] ?? "" ?></textarea>
     </p>
     <p><input type="submit" value="저장"></p>
     <?php
